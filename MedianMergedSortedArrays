@@ -1,0 +1,53 @@
+package testCodes;
+
+public class MedianMergedSortedArrays {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		int[] a={1,5};
+		int[] b = {2,3};
+		System.out.println("Median:"+findMedianFromMergedArrays(a,b));
+	}
+
+	private static double findMedianFromMergedArrays(int[] a, int[] b) {
+		// TODO Auto-generated method stub
+		int tot = a.length+b.length;
+		int[] c = new int[tot];
+		int k = 0;
+		for(int i=0,j=0; k<tot;k++){
+			if(i==a.length){
+				c[k] = b[j];
+				j++;
+			}
+			else{
+				if(j==b.length){
+					c[k] = a[i];
+					i++;
+				}
+				else{
+					if(a[i]<b[j]){
+						c[k] = a[i];
+						i++;
+					}
+					else{
+						c[k] = b[j];
+						j++;
+					}
+				}
+			}
+		}
+		System.out.println("Merged array is:");
+		for(int m:c){
+			System.out.println(m);
+		}
+		double median = 0.0;
+		if(c.length%2!=0){
+			median = c[(c.length-1)/2];
+		}
+		else{
+			median = (double)(c[(c.length-1)/2]+c[c.length/2])/2;
+		}
+		return median;
+	}
+
+}
