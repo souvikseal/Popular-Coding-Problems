@@ -5,6 +5,14 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+/*
+Sample test: Input string length:31000
+Brute force execution time in sec:36
+Length of the longest substring without repeat: (Brute Force)95
+Efficient execution time in sec:0
+Length of the longest substring without repeat: (Efficient)95
+*/
+
 public class LongestSubStringWithoutRepeat {
 
 	public static void main(String[] args) {
