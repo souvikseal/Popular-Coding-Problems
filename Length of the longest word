@@ -1,0 +1,24 @@
+package samplepack;
+
+public class LastWord {
+
+	public static void main(String[] args) {
+		System.out.println(lengthOfLastWord("AB C  "));
+
+	}
+
+	public static int lengthOfLastWord(String s) {
+		int ctr = 0;
+		String str = s.trim();
+		if (str != "") {
+			for (int i = str.length() - 1; i >= 0; i--) {
+				if (str.charAt(i) == ' ') {
+					break;
+				}
+				ctr++;
+			}
+		}
+		return ctr;
+	}
+
+}
