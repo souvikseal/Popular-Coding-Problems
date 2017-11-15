@@ -1,0 +1,23 @@
+package samplepack;
+
+public class Sqrt {
+	public static void main(String[] args) {
+		System.out.println(mySqrt(2147395600));
+	}
+
+	public static int mySqrt(int x) {
+		Long l = new Long(x);
+		if (l == 0 || l == 1) {
+			return x;
+		}
+		long i = 0;
+		for (; i <= l/2 ; i++) {
+			if (i * i > l) {
+				break;
+			}
+
+		}
+		int k = Math.toIntExact(i);
+		return (k - 1);
+	}
+}
