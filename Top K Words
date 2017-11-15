@@ -1,0 +1,58 @@
+package samplepack;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+
+public class TopKWords {
+
+	public static void main(String[] args) {
+		String sentence = "Top goes top? where goes top, eh?";
+		List<String> aList = getTopKWords(sentence, 4);
+		for (String s : aList) {
+			System.out.println(s);
+		}
+
+	}
+
+	private static List<String> getTopKWords(String str, int k) {
+		str = str + " ";
+		String s = str.toLowerCase();
+		Map<String, Integer> map = new HashMap<>();
+		List<String> aList = new ArrayList<>();
+		String word = "";
+		for (char c : s.toCharArray()) {
+			if (c >= 'a' && c <= 'z') {
+				word += c;
+			} else {
+				word.trim();
+				if (word.length() >= 1) {
+					if (map.get(word) == null) {
+						map.put(word, 1);
+					} else {
+						map.put(word, map.get(word) + 1);
+					}
+					word = "";
+				}
+			}
+		}
+		for (int i = 0; i < k; i++) {
+			int max = Integer.MIN_VALUE;
+			for (Entry<String, Integer> en : map.entrySet()) {
+				if (en.getValue() >= max) {
+					max = en.getValue();
+				}
+			}
+			for (Entry<String, Integer> en : map.entrySet()) {
+				if (en.getValue() == max) {
+					aList.add(en.getKey());
+					map.remove(en.getKey());
+					break;
+				}
+			}
+		}
+		return aList;
+	}
+}
