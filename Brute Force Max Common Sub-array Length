@@ -1,0 +1,42 @@
+class BFMaxCommonSubArrayLength {
+    public int findLength(int[] A, int[] B) {
+        int max = 0;
+        List<int[]> a1 = buildSubArray(A);
+        List<int[]> a2 = buildSubArray(B);
+        
+        for(int[] a:a1){
+            for(int[] b:a2){    
+                if(arrayCheck(a,b)){
+                    if(max<a.length){
+                        max = a.length;
+                    }
+                }
+            }
+        }
+        return max;
+    }
+    public boolean arrayCheck(int[]a, int[]b){
+        if(a.length!=b.length){
+            return false;
+        }
+        for(int i=0;i<a.length;i++){
+            if(a[i]!=b[i]){
+                return false;
+            }
+        }
+        return true;
+    }
+    public List<int[]> buildSubArray(int[] arr){
+        List<int[]> aList = new ArrayList<int[]>();
+        for(int i=0;i<arr.length;i++){
+            for(int j = i;j<arr.length;j++){
+                int[] a = new int[j-i+1];
+                for(int k=0,l=i;l<=j;k++,l++){
+                    a[k] = arr[l];
+                }
+                aList.add(a);
+            }
+        }
+        return aList;
+    }
+}
