@@ -1,0 +1,72 @@
+package code.utilities;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * A mixed String array of Roman and Arabic numerals is given; Sort the array
+ * retaining the same String values. E.g. if input array is, {"IX","3","II"},
+ * the output will be, {"II","3","IX"}
+ *
+ */
+public class RomanToNumSort {
+
+	public static void main(String[] args) {
+		String[] ip = { "10", "IX", "1", "z", "II", "0" };
+		sort(ip);
+	}
+
+	private static void sort(String[] ip) {
+		List<Num> aList = new ArrayList<Num>();
+		for (int i = 0; i < ip.length; i++) {
+			Num num = new Num();
+			num.stringVal = ip[i];
+			Integer romItr = getNumFromRoman().get(ip[i]);
+			// regular integer
+			if (romItr == null) {
+				try {
+					num.intVal = Integer.parseInt(ip[i]);
+				} catch (NumberFormatException ne) {
+					// sort only the numbers
+					continue;
+				}
+			}
+			// Roman integer
+			else {
+				num.intVal = romItr;
+			}
+			aList.add(num);
+		}
+		Collections.sort(aList, new Comparator<Num>() {
+			public int compare(Num n1, Num n2) {
+				return (n1.intVal).compareTo(n2.intVal);
+			}
+		});
+		for (Num i : aList) {
+			System.out.println(i.stringVal);
+		}
+	}
+
+	private static Map<String, Integer> getNumFromRoman() {
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("I", 1);
+		map.put("II", 2);
+		map.put("III", 3);
+		map.put("IV", 4);
+		map.put("V", 5);
+		map.put("VI", 6);
+		map.put("VII", 7);
+		map.put("VIII", 8);
+		map.put("IX", 9);
+		return map;
+	}
+}
+
+class Num {
+	String stringVal;
+	Integer intVal;
+}
