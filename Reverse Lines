@@ -1,0 +1,70 @@
+package code.utilities;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class ReverseLines {
+
+	// defines current user directory
+	private static final String CURRENT_DIR = System.getProperty("user.dir");
+
+	public static void main(String[] args) {
+		String inputFile = CURRENT_DIR + "/input.txt";
+		reverseLinesInFile(inputFile);
+	}
+
+	private static void reverseLinesInFile(String fileName) {
+		List<String> inputLineList = new ArrayList<String>();
+		try {
+			// read the input text
+			Scanner scanner = new Scanner(new File(fileName));
+			while (scanner.hasNextLine()) {
+				inputLineList.add(scanner.nextLine());
+			}
+			Writer wr = new FileWriter(CURRENT_DIR + "/output.txt");
+			// write the output text
+			int i = 0;
+			for (; i < inputLineList.size(); i++) {
+				String arr[] = inputLineList.get(i).split(" ");
+				for (int j = arr.length - 1; j >= 0; j--) {
+					if (j > 0) {
+						wr.write(arr[j] + " ");
+					} else {
+						wr.write(arr[j]);
+					}
+				}
+				// making sure that there is no additional new line in the output file
+				if (i < inputLineList.size() - 1) {
+					wr.write("\n");
+				}
+				arr = null;
+			}
+			scanner.close();
+			wr.flush();
+			wr.close();
+		} catch (FileNotFoundException e) {
+			System.out.println("Input file not found");
+		} catch (IOException e) {
+			System.out.println("Output file cannot be created");
+		}
+	}
+}
+
+
+/***
+Input:
+Test data.
+I had a dream.
+Test dream
+
+Output:
+data. Test 
+dream. a had I 
+dream Test 
+**/
